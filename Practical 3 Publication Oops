@@ -1,0 +1,124 @@
+/*Imagine a publishing company which does marketing for book 
+and  audio  cassette  versions.  Create  a  class  publication  that 
+stores  the  title  (a  string)  and  price  (type  float)  of  publications. 
+From  this  class  derive  two  classes:  book  which  adds  a  page 
+count (type int) and tape which adds a playing time in minutes 
+(type float). Write a program that instantiates the book and tape 
+class, allows user to enter data and displays the data members. 
+If  an  exception  is  caught,  replace  all  the  data  member  values 
+with zero values.*/
+
+
+#include<iostream>
+using namespace std;
+
+class publication
+{
+    private:
+    string title;
+    float price;
+
+    public:
+    void getdata();
+    void display();
+
+};
+
+void publication:: getdata()
+{
+    cout<<"Enter the title:"<<endl;
+    cin>>title;
+    cout<<"Enter the Price:"<<endl;
+    cin>>price;
+}
+
+void publication::display()
+{
+    cout<<"Title of the book is: "<<title<<endl;
+    cout<<"Price of the book is: "<<price<<endl;
+}
+
+
+class book:public publication
+{
+    private:
+    int pagecount;
+    public:
+    void insert();
+    void show();
+};
+
+void book::insert()
+{
+    getdata();
+    cout<<"Enter the total pages: "<<endl;
+    cin>>pagecount;
+
+
+}
+
+void book::show()
+{
+    display();
+    if (pagecount<=0)
+    {
+        cout<<"Invalid pagecount"<<endl;
+    }
+    else
+    {
+        cout<<"pagecount is: "<<pagecount<<endl;
+    }
+
+}
+
+class tape:public publication
+{
+    private:
+    float minutes;
+    public:
+    void time();
+    void print();
+};
+
+void tape::time()
+{
+    getdata();
+    cout<<"Enter playing time: "<<endl;
+    cin>>minutes;
+}
+
+void tape::print()
+{
+    display();
+    cout<<"Playing time is: "<<minutes<<endl;
+}
+
+int main()
+{
+    book b;
+    tape t;
+    int ch;
+
+    do
+    {
+    cout<<" 1.Book  2.CD  3.exit"<<endl;
+    cin>>ch;
+    switch (ch)
+    {
+    case 1:
+        b.insert();
+        b.show();
+    break;
+    case 2:
+        t.time();
+        t.print();
+    break;
+    case 3:
+        exit(0);
+    break;
+    
+    }
+    } while (ch!=3);
+    return 0;
+    
+}
