@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<stdlib.h>
+
+int main()
+{
+	int gdriver=DETECT, gmode, x, y, j, i;
+	initgraph(&gdriver, &gmode, "");
+	
+	for(i = 0; i < 700; i++)
+	{
+		circle(20 + i, 200, 10);		
+		line(20 + i, 210, 20 + i, 250);
+		//arm
+		line(20 + i, 220, 10 + i, 250);
+		line(20 + i, 220, 30 + i, 250);
+		//legs
+		line(20 + i, 250, 30 + i, 300);
+		line(20 + i, 250, 10 + i, 300);
+		line(0, 300, 700, 300);
+
+		//rain
+		x = getmaxx();
+		y = getmaxy();
+
+		for (j = 0; j < 100; j++)
+		{
+			outtextxy(rand() % x, rand() % (y - 150), "i");  // Use rand() instead of random()
+		}
+
+		delay(5);
+		cleardevice();
+	}
+
+	getch();
+	closegraph();
+
+	return 0;
+}
+
