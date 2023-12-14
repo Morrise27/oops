@@ -1,0 +1,91 @@
+/*Write a C++ program that creates an output file, writes information to it, closes the
+file and open it again as an input file and read the information from the file.*/
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class student
+{
+private:
+    string name;
+    int rollno;
+    int count;
+
+public:
+    void add_info()
+    {
+        cout << "Enter total no. of students: " << endl;
+        cin >> count;
+        for (int i = 0; i < count; i++)
+        {
+            fstream fs;
+            fs.open("data.txt", ios::app);
+            if (!fs)
+                cout << "file creation failed...";
+            else
+            {
+                cout << "\nEnter name: ";
+                cin >> name;
+                cout << "\nEnter rollno :";
+                cin >> rollno;
+                fs << name;
+                fs <<": "<< rollno <<endl;
+                fs.close();
+            }
+        }
+    }
+
+    void display_info()
+    {
+        fstream fs;
+        fs.open("data.txt", ios::in);
+        if (!fs)
+            cout << "NO such file";
+
+        else
+        {
+            while (!fs.eof())
+            {
+                fs >> name;
+                fs >> rollno;
+
+                cout<< name;
+                cout <<": "<<rollno<<endl;
+                // cout << "\n ";
+            }
+            fs.close();
+        }
+    }
+};
+
+int main()
+{
+    int ch;
+    student s;
+    fstream fs;
+    do
+    {
+        cout << "\n1. Add info";
+        cout << "\n2. display info";
+        cout << "\n3. exit";
+        cout << "\nEnter choice: ";
+        cin >> ch;
+
+        switch (ch)
+        {
+        case 1:
+            s.add_info();
+            break;
+
+        case 2:
+            s.display_info();
+            break;
+
+        case 3:
+            exit(0);
+        }
+    } while (ch != 3);
+
+    return 0;
+}
