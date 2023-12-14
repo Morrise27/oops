@@ -1,0 +1,84 @@
+#include<iostream>
+using namespace std;
+
+class student{
+private:
+    string name;
+    int rollno;
+    char division;
+
+public:
+    student():name("omkar hole"),rollno(1),division()
+    {
+        cout<<"default value is: "<<endl;
+        display();
+    }
+
+    void display() const{
+        cout<<"name: "<<name<<endl;
+        cout<<"roll no: "<<rollno<<endl;
+        cout<<"divison: "<<division<<endl;
+    }
+
+    student(string _name,int _rollno,char _division):name(_name),rollno(_rollno),division(_division)
+    {}
+
+    student(const student &other):name(other.name),rollno(other.rollno),division(other.division)
+    {}
+
+    ~student(){}
+
+    static void printcount(int count){
+        cout<<"total students: "<< count <<endl;
+    }
+
+    friend class database;
+};
+
+class database{
+    private:
+    static int studentCount;
+
+    public:
+    database(){}
+
+    ~database(){}
+
+    static void addStudent(){
+        string name;
+        int rollno;
+        char division;
+
+        cout<<"name: ";
+        cin>>name;
+        cout<<"roll no: ";
+        cin>>rollno;
+        cout<<"div: ";
+        cin>>division;
+
+        student *newstudent= new student (name,rollno,division);
+
+        studentCount++;
+    }
+
+    static int getcount(){
+        return studentCount;
+    }
+};
+
+int database::studentCount=0;
+
+int main(){
+    char ch,y;
+    do{
+        student obj;
+        cout<<endl;
+        database::addStudent();
+        cout<<"do you want to add another student (y/n): ";
+        cin>>ch;
+
+    }while(ch=='y');
+
+    int totalStudents=database::getcount();
+    student::printcount(totalStudents);
+}
