@@ -1,0 +1,142 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Student {
+public:
+    int rollno;
+    string name;
+    char dob[15];
+
+    bool operator==(const Student &student1) 
+    {
+        return rollno == student1.rollno;
+    }
+
+    bool operator<(const Student &student1) 
+    {
+        return rollno < student1.rollno;
+    }
+};
+
+vector<Student> s1;
+
+void print(const Student &k);
+void display();
+void insert();
+void search();
+void sort1();
+void delet();
+
+bool compare(const Student &k, const Student &i2) {
+    return k.rollno < i2.rollno;
+}
+
+int main() {
+    int ch;
+    do {
+        cout << "\n\n\t\t-------<< MENU >>---------";
+        cout << "\n\t\t1.Insert";
+        cout << "\n\t\t2.Display ";
+        cout << "\n\t\t3.Search ";
+        cout << "\n\t\t4.Sort";
+        cout << "\n\t\t5.Delete ";
+        cout << "\n\t\t6.Quit";
+        cout << "\n\t\t--------------------------";
+        cout << "\n\t\tEnter your choice : ";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                insert();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:
+                sort1();
+                cout << "sorted on roll number";
+                display();
+                break;
+            case 5:
+                delet();
+                break;
+        }
+    } while (ch != 6);
+
+    return 0;
+}
+
+void insert() {
+    Student k;
+    cout << "\nEnter Roll No : ";
+    cin >> k.rollno;
+    cout << "\nEnter Name : ";
+    cin >> k.name;
+    cout << "\nEnter DOB  : ";
+    cin >> k.dob;
+    s1.push_back(k);
+}
+
+void display() {
+    for_each(s1.begin(), s1.end(), print);
+}
+
+void print(const Student &i1) {
+    cout << endl;
+    cout << " student Name " << i1.name << endl;
+    cout << " Student roll number : " << i1.rollno << endl;
+    cout << "Student DOB" << i1.dob << endl;
+}
+
+void search() {
+    vector<Student>::iterator p;
+    Student k;
+    cout << "\nEnter Student Roll No To Search  : ";
+    cin >> k.rollno;
+    p = find(s1.begin(), s1.end(), k);
+    if (p != s1.end())
+        print(*p);
+    else
+        cout << "\nNot found ";
+}
+
+void delet() {
+    Student k;
+    cout << "\nEnter Student Roll No To Delete : ";
+    cin >> k.rollno;
+    vector<Student>::iterator p;
+    p = find(s1.begin(), s1.end(), k);
+    if (p != s1.end())
+        s1.erase(p);
+    else
+        cout << "\nNot found ";
+}
+
+void sort1() {
+    sort(s1.begin(), s1.end(), compare);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
